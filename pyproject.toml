@@ -1,0 +1,40 @@
+[project]
+name = "asuka"
+version = "0.0.0"
+requires-python = ">=3.10"
+dependencies = [
+  "click",
+  "onnxsim==0.4.36",
+  # "tensorrt_llm==0.10.0",
+]
+
+description = "TODO"
+
+
+[build-system]
+requires = [
+  "py-build-cmake~=0.1.8",
+  "pybind11",
+]
+build-backend = "py_build_cmake.build"
+
+[tool.py-build-cmake.module]
+directory = "python"
+
+[tool.py-build-cmake.sdist]
+include = ["CMakeLists.txt", "3rd/*", "include/*", "lib/*", "ffi/*"]
+
+[tool.py-build-cmake.cmake]
+minimum_version = "3.18.0"
+generator = "Ninja"
+# build_type = "RelWithDebInfo"
+build_type = "Debug"
+install_components = ["python_module"]
+build_path = "build"
+build_args = ["-j64"]
+build_tool_args = ["--verbose"]
+install_args = ["--verbose"]
+
+[tool.py-build-cmake.cmake.options]
+CMAKE_CXX_COMPILER = "g++"
+CMAKE_C_COMPILER = "gcc"
